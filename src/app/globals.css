@@ -1,26 +1,487 @@
 @import "tailwindcss";
 
+/* ============================================ */
+/* CYBERPUNK DESIGN SYSTEM — "NEON CIRCUIT"     */
+/* ============================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ── Core Palette ── */
+  --bg-primary: #050510;
+  --bg-secondary: #0a0a1a;
+  --bg-tertiary: #0f0f24;
+  --bg-elevated: #141430;
+  --surface: #0d0d22;
+  --surface-hover: #161638;
+
+  /* ── Borders ── */
+  --border: rgba(0, 255, 255, 0.06);
+  --border-light: rgba(0, 255, 255, 0.12);
+  --border-hot: rgba(255, 0, 128, 0.15);
+
+  /* ── Text ── */
+  --text-primary: #e0f0ff;
+  --text-secondary: #8899bb;
+  --text-muted: #445577;
+
+  /* ── Neon Cyan (Primary Accent) ── */
+  --cyan: #00ffff;
+  --cyan-dim: rgba(0, 255, 255, 0.06);
+  --cyan-glow: rgba(0, 255, 255, 0.25);
+  --cyan-bright: #40ffff;
+
+  /* ── Neon Magenta (Secondary) ── */
+  --magenta: #ff0080;
+  --magenta-dim: rgba(255, 0, 128, 0.06);
+  --magenta-glow: rgba(255, 0, 128, 0.25);
+
+  /* ── Electric Purple ── */
+  --purple: #bf5af2;
+  --purple-dim: rgba(191, 90, 242, 0.08);
+  --purple-glow: rgba(191, 90, 242, 0.2);
+
+  /* ── Keep reference names for component compat ── */
+  --accent: #00ffff;
+  --accent-hover: #40ffff;
+  --accent-dim: rgba(0, 255, 255, 0.06);
+  --accent-glow: rgba(0, 255, 255, 0.25);
+
+  /* ── Status Colors ── */
+  --green: #00ff88;
+  --green-dim: rgba(0, 255, 136, 0.08);
+  --red: #ff3366;
+  --red-dim: rgba(255, 51, 102, 0.08);
+  --yellow: #ffcc00;
+  --yellow-dim: rgba(255, 204, 0, 0.08);
+  --blue: #00aaff;
+  --blue-dim: rgba(0, 170, 255, 0.08);
+
+  /* ── Typography ── */
+  --font-display: var(--font-orbitron), 'Orbitron', 'Inter', sans-serif;
+  --font-sans: var(--font-rajdhani), 'Rajdhani', 'Inter', system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* ── Radius ── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* ── Shadows ── */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.7);
+  --shadow-neon: 0 0 20px var(--cyan-glow), 0 0 60px rgba(0, 255, 255, 0.08);
+  --shadow-hot: 0 0 20px var(--magenta-glow), 0 0 60px rgba(255, 0, 128, 0.08);
+
+  /* ── Transitions ── */
+  --transition-fast: 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--text-primary);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============================================ */
+/* RESET & GLOBALS                              */
+/* ============================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scanline overlay — subtle CRT effect on entire page */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 255, 255, 0.015) 2px,
+      rgba(0, 255, 255, 0.015) 4px);
+}
+
+/* ============================================ */
+/* HIDE LIVEBLOCKS BADGE                        */
+/* ============================================ */
+[data-liveblocks-portal],
+[style*="liveblocks"],
+a[href*="liveblocks.io"],
+div[style*="position: fixed"][style*="bottom"],
+div[style*="position:fixed"][style*="bottom"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  z-index: -1 !important;
+}
+
+/* ============================================ */
+/* SCROLLBAR — Neon thin line                   */
+/* ============================================ */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 255, 0.15);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 255, 0.3);
+}
+
+/* ============================================ */
+/* SELECTION — Neon highlight                   */
+/* ============================================ */
+::selection {
+  background: rgba(0, 255, 255, 0.2);
+  color: var(--text-primary);
+}
+
+/* ============================================ */
+/* KEYFRAMES                                    */
+/* ============================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Neon glow pulse */
+@keyframes neon-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 4px var(--cyan-glow), 0 0 16px rgba(0, 255, 255, 0.08);
+  }
+
+  50% {
+    box-shadow: 0 0 8px var(--cyan-glow), 0 0 32px rgba(0, 255, 255, 0.15);
+  }
+}
+
+@keyframes neon-pulse-hot {
+
+  0%,
+  100% {
+    box-shadow: 0 0 4px var(--magenta-glow), 0 0 16px rgba(255, 0, 128, 0.08);
+  }
+
+  50% {
+    box-shadow: 0 0 8px var(--magenta-glow), 0 0 32px rgba(255, 0, 128, 0.15);
+  }
+}
+
+/* Text glow pulse */
+@keyframes text-glow {
+
+  0%,
+  100% {
+    text-shadow: 0 0 4px var(--cyan-glow);
+  }
+
+  50% {
+    text-shadow: 0 0 12px var(--cyan-glow), 0 0 24px rgba(0, 255, 255, 0.1);
+  }
+}
+
+/* Cyber dot pulse */
+@keyframes pulse-dot {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(0.7);
+  }
+}
+
+/* Glitch horizontal */
+@keyframes glitch-h {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  20% {
+    transform: translateX(-2px);
+  }
+
+  40% {
+    transform: translateX(2px);
+  }
+
+  60% {
+    transform: translateX(-1px);
+  }
+
+  80% {
+    transform: translateX(1px);
+  }
+}
+
+/* Glitch flicker */
+@keyframes glitch-flicker {
+
+  0%,
+  97%,
+  100% {
+    opacity: 1;
+  }
+
+  98% {
+    opacity: 0.8;
+  }
+
+  99% {
+    opacity: 0.6;
+  }
+}
+
+/* Data stream scanline */
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+/* Gradient border animation */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Float animation */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Shimmer for loading */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Border trace — light runs around border */
+@keyframes border-trace {
+  0% {
+    --angle: 0deg;
+  }
+
+  100% {
+    --angle: 360deg;
+  }
+}
+
+/* Typing cursor blink */
+@keyframes typing-cursor {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ============================================ */
+/* UTILITY CLASSES                              */
+/* ============================================ */
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-fade-in-scale {
+  animation: fadeInScale 0.2s ease-out;
+}
+
+.animate-slide-down {
+  animation: slideDown 0.2s ease-out;
+}
+
+.animate-neon-pulse {
+  animation: neon-pulse 2.5s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-glitch {
+  animation: glitch-flicker 4s ease-in-out infinite;
+}
+
+/* Glassmorphism — cyberpunk variant */
+.glass {
+  background: rgba(5, 5, 16, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+}
+
+.glass-light {
+  background: rgba(10, 10, 26, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-light);
+}
+
+/* Neon text glow */
+.neon-text {
+  color: var(--cyan);
+  text-shadow: 0 0 8px var(--cyan-glow), 0 0 30px rgba(0, 255, 255, 0.1);
+}
+
+.neon-text-hot {
+  color: var(--magenta);
+  text-shadow: 0 0 8px var(--magenta-glow), 0 0 30px rgba(255, 0, 128, 0.1);
+}
+
+/* Gradient accent border */
+.gradient-border {
+  position: relative;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--cyan-glow), var(--magenta-glow), var(--cyan-glow));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: gradient-shift 4s ease infinite;
+  background-size: 200% 200%;
+}
+
+/* Cyber clip — angled corner */
+.cyber-clip {
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+}
+
+/* ============================================ */
+/* MONACO EDITOR OVERRIDES                      */
+/* ============================================ */
+.monaco-editor,
+.monaco-editor .overflow-guard {
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg) !important;
+}
+
+.monaco-editor .cursors-layer .cursor {
+  transition: left 0.08s ease, top 0.08s ease;
+}
+
+/* Focus ring — neon */
+.focus-ring:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+  box-shadow: 0 0 8px var(--cyan-glow);
 }

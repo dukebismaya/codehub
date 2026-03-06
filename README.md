@@ -6,6 +6,10 @@
 
 **A Next-Gen Real-Time Collaborative Code Editor**
 
+<a href="https://codehub.bismaya.xyz">
+  <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=22&duration=4000&pause=1000&color=BF5AF2&center=true&vCenter=true&width=400&height=40&lines=%E2%86%92+LIVE+AT:+codehub.bismaya.xyz+%E2%86%90;Jack+into+the+grid+now!;Execute+code+in+real-time" alt="Live Demo Link" />
+</a>
+
 <p align="center">
   <img src="https://img.shields.io/badge/NEXT.JS-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js" />
   <img src="https://img.shields.io/badge/REACT-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
@@ -60,7 +64,7 @@
 
 <div align="center">
   <br />
-  <a href="https://skillicons.dev">
+  <a>
     <img src="https://skillicons.dev/icons?i=nextjs,react,ts,tailwind,nodejs,npm,vscode,github&theme=dark" alt="Tech Stack" />
   </a>
   <br /><br />
@@ -105,11 +109,11 @@ npm run dev
 
 📡 Open **[http://localhost:3000](http://localhost:3000)** to enter the system.
 
-<!-- <br />
+<br />
 <div align="center">
-  <img src="https://user-images.githubusercontent.com/73097560/115834857-41857000-a448-11eb-8cc5-0370f6f0dd54.gif" width="100%" />
+  <img src="https://capsule-render.vercel.app/api?type=rect&color=0:00ffff,100:bf5af2&height=4&section=header" width="100%"/>
 </div>
-<br /> -->
+<br />
 
 ## 📂 FILE SYSTEM ARCHITECTURE
 

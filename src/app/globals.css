@@ -96,7 +96,17 @@
 html,
 body {
   height: 100%;
-  overflow: hidden;
+  overflow: hidden; /* Lock scroll by default for desktop app feel */
+}
+
+@media (max-width: 768px), (max-height: 800px) {
+  html,
+  body {
+    height: auto;
+    min-height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
 }
 
 body {

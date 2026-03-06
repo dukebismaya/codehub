@@ -391,6 +391,7 @@ function RoomContent({ roomId, username }: { roomId: string; username: string })
           display: flex;
           flex-direction: column;
           height: 100vh;
+          height: 100dvh;
           background: var(--bg-primary);
         }
 
@@ -401,6 +402,18 @@ function RoomContent({ roomId, username }: { roomId: string; username: string })
           padding: 8px 12px 12px;
           gap: 0;
           animation: fadeIn 0.4s ease-out;
+        }
+
+        @media (max-width: 768px) {
+          .app {
+            height: auto;
+            min-height: 100dvh;
+          }
+          .workspace {
+            height: 120vh;
+            min-height: 120vh;
+            overflow: visible;
+          }
         }
 
         .workspace.horizontal { flex-direction: row; }
